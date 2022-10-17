@@ -21,19 +21,14 @@ func Run(
 		if err != nil {
 			return result, err
 		}
-		result = fmt.Sprintf(
-			"Product ID %s with the name %s has been created with the price %f and status %s",
-			product.GetID(),
-			product.GetName(),
-			product.GetPrice(),
-			product.GetStatus(),
-		)
+		result = fmt.Sprintf("Product ID %s with the name %s has been created with the price %f and status %s",
+			product.GetID(), product.GetName(), product.GetPrice(), product.GetStatus())
 	case "enable":
 		product, err := service.Get(productId)
 		if err != nil {
 			return result, err
 		}
-		res, err := service.Enabled(product)
+		res, err := service.Enable(product)
 		if err != nil {
 			return result, err
 		}
@@ -53,13 +48,8 @@ func Run(
 		if err != nil {
 			return result, err
 		}
-		result = fmt.Sprintf(
-			"Product ID: %s\nName: %s\nPrice: %f\nStatus: %s",
-			res.GetID(),
-			res.GetName(),
-			res.GetPrice(),
-			res.GetStatus(),
-		)
+		result = fmt.Sprintf("Product ID: %s\nName: %s\nPrice: %f\nStatus: %s",
+			res.GetID(), res.GetName(), res.GetPrice(), res.GetStatus())
 	}
 	return result, nil
 }
