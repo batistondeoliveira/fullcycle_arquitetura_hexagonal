@@ -6,13 +6,14 @@ import (
 	"os"
 	"time"
 
+	"github.com/batistondeoliveira/fullcycle_arquitetura_hexagonal/adapters/web/handler"
 	"github.com/batistondeoliveira/fullcycle_arquitetura_hexagonal/application"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 )
 
 type Webserver struct {
-	Serice application.ProductPersistenceInterface
+	Service application.ProductServiceInterface
 }
 
 func MakeNewWebserver() *Webserver {
@@ -24,7 +25,8 @@ func (w Webserver) Serve() {
 	n := negroni.New(
 		negroni.NewLogger(),
 	)
-
+	handler.MakeProductHandlers(r, n, w.Service)
+	http.Handle("/", r)
 	server := &http.Server{
 		ReadHeaderTimeout: 10 * time.Second,
 		WriteTimeout:      10 * time.Second,
